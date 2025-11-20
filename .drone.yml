@@ -15,7 +15,7 @@ trigger:
       - tag
   ref:
     include:
-      - refs/tags/(\d+)\.(\d+)\.(\d+)-rc\.(\d+)
+      - /refs\/tags\/\d+\.\d+\.\d+-rc\.\d+/
 
 steps:
   - name: greeting
@@ -52,7 +52,7 @@ trigger:
       - tag
   ref:
     include:
-      - refs/tags/(\d+)\.(\d+)\.(\d+)-(\d+)
+      - /refs\/tags\/\d+\.\d+\.\d+-\d+/
 
 steps:
   - name: greeting
