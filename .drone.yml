@@ -16,6 +16,6 @@ steps:
   - name: change dir
     commands:
       - cd /opt/apps/teman-data-landing-page && ls
-  - name: test
+  - name: where IM
     commands:
-      - ls -la
+      - pwd && ls -la
