@@ -33,3 +33,40 @@ steps:
     commands:
       - docker images
       - docker ps
+
+---
+kind: pipeline
+type: exec
+name: Deploying Production
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 5
+
+trigger:
+  event:
+    include:
+      - tag
+  ref:
+    include:
+      - refs/tags/[0-9]*.[0-9]*.[0-9]*-[0-9]*
+
+steps:
+  - name: greeting
+    commands:
+      - echo hello world prods
+      - whoami
+  - name: change dir
+    commands:
+      - cd /opt/apps/teman-data-landing-page
+      - ls -la
+  - name: where IM
+    commands:
+      - pwd && ls -la
+  - name: test docker acceseee
+    commands:
+      - docker images
+      - docker ps
