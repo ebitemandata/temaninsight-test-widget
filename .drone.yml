@@ -20,3 +20,7 @@ steps:
   - name: where IM
     commands:
       - pwd && ls -la
+  - name: test docker acceseee
+    commands:
+      - docker images
+      - docker ps
