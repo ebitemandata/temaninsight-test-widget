@@ -1,6 +1,6 @@
 kind: pipeline
 type: exec
-name: default
+name: deploy staging
 
 platform:
   os: linux
@@ -13,6 +13,7 @@ steps:
   - name: greeting
     commands:
       - echo hello world
+      - whoami
   - name: change dir
     commands:
       - cd /opt/apps/teman-data-landing-page
