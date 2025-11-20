@@ -1,6 +1,6 @@
 kind: pipeline
 type: exec
-name: deploy staging
+name: Deploying Staging
 
 platform:
   os: linux
@@ -9,10 +9,55 @@ platform:
 clone:
   depth: 5
 
+trigger:
+  event:
+    include:
+      - tag
+  ref:
+    include:
+      - refs/tags/v?(\d+)\.(\d+)\.(\d+)-rc\.(\d+)
+
 steps:
   - name: greeting
     commands:
-      - echo hello world
+      - echo hello world staging
+      - whoami
+  - name: change dir
+    commands:
+      - cd /opt/apps/teman-data-landing-page
+      - ls -la
+  - name: where IM
+    commands:
+      - pwd && ls -la
+  - name: test docker acceseee
+    commands:
+      - docker images
+      - docker ps
+
+---
+kind: pipeline
+type: exec
+name: Deploying Production
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 5
+
+trigger:
+  event:
+    include:
+      - tag
+  ref:
+    include:
+      - refs/tags/v?(\d+)\.(\d+)\.(\d+)-(\d+)
+
+steps:
+  - name: greeting
+    commands:
+      - echo hello world prods
       - whoami
   - name: change dir
     commands:
