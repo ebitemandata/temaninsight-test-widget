@@ -15,7 +15,8 @@ steps:
       - echo hello world
   - name: change dir
     commands:
-      - cd /opt/apps/teman-data-landing-page && ls
+      - cd /opt/apps/teman-data-landing-page
+      - ls -la
   - name: where IM
     commands:
       - pwd && ls -la
