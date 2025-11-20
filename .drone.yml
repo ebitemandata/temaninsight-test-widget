@@ -15,7 +15,7 @@ trigger:
       - tag
   ref:
     include:
-      - refs/tags/*-rc.*
+      - refs/tags/v?\d+\.\d+\.\d+-rc\.\d+
 
 steps:
   - name: greeting
