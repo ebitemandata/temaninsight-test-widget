@@ -7,7 +7,7 @@ platform:
   arch: amd64
 
 clone:
-  depth: 5
+  disable: true
 
 trigger:
   event:
@@ -20,53 +20,13 @@ trigger:
 steps:
   - name: greeting
     commands:
-      - echo hello world staging
       - whoami
-  - name: change dir
+  - name: preperation
+    environment:
+      LOCATION: /opt/data/teman-data-landing-page
     commands:
-      - cd /opt/apps/teman-data-landing-page
+      - pwd
       - ls -la
-  - name: where IM
-    commands:
-      - pwd && ls -la
-  - name: test docker acceseee
-    commands:
-      - docker images
-      - docker ps
-
----
-kind: pipeline
-type: exec
-name: Deploying Production
-
-platform:
-  os: linux
-  arch: amd64
-
-clone:
-  depth: 5
-
-trigger:
-  event:
-    include:
-      - tag
-  ref:
-    include:
-      - refs/tags/[0-9]*.[0-9]*.[0-9]*-[0-9]*
-
-steps:
-  - name: greeting
-    commands:
-      - echo hello world prods
-      - whoami
-  - name: change dir
-    commands:
-      - cd /opt/apps/teman-data-landing-page
-      - ls -la
-  - name: where IM
-    commands:
-      - pwd && ls -la
-  - name: test docker acceseee
-    commands:
-      - docker images
-      - docker ps
+      - echo $LOCATION
+      - echo $DRONE_TAG >> $LOCATION/.version-history
+      - if [ $(wc -l < $LOCATION/.version-history) -gt 2 ]; then echo "yes"; else echo "no"; fi
