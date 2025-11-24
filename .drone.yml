@@ -28,9 +28,8 @@ steps:
       - touch $LOCATION/.version-history
       - |
         if [ $(wc -l < "$LOCATION/.version-history") -gt 2 ]; then
-          echo "removing: $(head -n 1 "$LOCATION/.version-history")"
+          sed -i '1d' "$LOCATION/.version-history"
           echo "$DRONE_TAG" >> "$LOCATION/.version-history"
         else
           echo "$DRONE_TAG" >> "$LOCATION/.version-history"
-          echo Add $DRONE_TAG
         fi
