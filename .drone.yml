@@ -23,13 +23,17 @@ steps:
       - whoami
   - name: preperation
     environment:
-      LOCATION: /opt/data/teman-data-landing-page
+      VERSION_HISTORY: /opt/data/teman-data-landing-page/.version-history
     commands:
-      - touch $LOCATION/.version-history
+      - touch $VERSION_HISTORY
       - |
-        if [ $(wc -l < "$LOCATION/.version-history") -gt 2 ]; then
-          sed -i '1d' "$LOCATION/.version-history"
-          echo "$DRONE_TAG" >> "$LOCATION/.version-history"
+        if [ $(wc -l < "$VERSION_HISTORY") -gt 2 ]; then
+          sed -i '1d' "$VERSION_HISTORY"
+          OLD_TAG=$(head -n 1 "$VERSION_HISTORY")
+          IMAGE_OLD="teman-data-landing-page:$OLD_TAG"
+          echo "image old is"
+          echo $IMAGE_OLD
+          echo "$DRONE_TAG" >> "$VERSION_HISTORY"
         else
-          echo "$DRONE_TAG" >> "$LOCATION/.version-history"
+          echo "$DRONE_TAG" >> "$VERSION_HISTORY"
         fi
