@@ -28,11 +28,9 @@ steps:
       - touch $VERSION_HISTORY
       - |
         if [ $(wc -l < "$VERSION_HISTORY") -gt 2 ]; then
-          sed -i '1d' "$VERSION_HISTORY"
           OLD_TAG=$(head -n 1 "$VERSION_HISTORY")
-          IMAGE_OLD="teman-data-landing-page:$OLD_TAG"
-          echo "image old is"
-          echo $IMAGE_OLD
+          docker rmi -f "teman-data-landing-page:$OLD_TAG"
+          sed -i '1d' "$VERSION_HISTORY"
           echo "$DRONE_TAG" >> "$VERSION_HISTORY"
         else
           echo "$DRONE_TAG" >> "$VERSION_HISTORY"
